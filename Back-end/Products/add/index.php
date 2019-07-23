@@ -24,13 +24,13 @@ header('Content-Type: application/json');
 $reponse = [
     "error"         => true, /* indique si il y a une erreur ou non */
     "error_message" => "Uknown error", /* il indique le message d'erreur pour les front */
-    "data"          => "http://localhost/project/Project/Back-end/Products/list/" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
+    "data"          => "Hello fron add file" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
 ];
 
-/*
+
 // on fait une requete pour afficher à partir de la BD 
 // requête préparée 
-$sql = "SELECT * FROM students LIMIT 1;";
+$sql = "DELETE * FROM  LIMIT 1;";
 $stmtnt = $bdd->prepare($sql);
 $stmtnt->execute();
 

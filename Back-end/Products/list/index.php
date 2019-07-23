@@ -1,62 +1,49 @@
 <?php
-
-/* On ajoute la finction cors qui permet le cross-origin */
-/* pour authoriser l'appel du fichier entre backend et frontend*/
-require "../../libs/cors.php";
-/*on appelle la fonction cors*/
-cors();
-
-/* connexion à la db */
-require "../../libs/connexiondb.php";
-
-/* on a ajouté le type du fichier */
-header('Content-Type: application/json');
-
-
 /*
-    on construit un tableau php
-    ICI, on doir respecter le format demandé car les frontends  (dans cet exercice)
-    s'attendent à recevoir se format
-    
-    pour une première itération/intéraction avec les frontends
+
+ex_3 : 
 
 */
-$reponse = [
-    "error"         => true, /* indique si il y a une erreur ou non */
-    "error_message" => "Uknown error", /* il indique le message d'erreur pour les front */
-    "data"          => "connexion" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
+
+/* On authorise les requêtes provenant de n'importe quel origine  */
+require "../../libs/cors.php";
+require "../../libs/connexiondb.php";
+cors();
+
+/* On spécifie que le document généré doit être au format json */
+header('Content-Type: application/json');
+
+/* Réponse par défaut*/
+$response = [
+    "error"         => true,
+    "error_message" => "Uknown Error",
+    "data"          => NULL
 ];
 
 
-// on fait une requete pour afficher à partir de la BD 
-// requête préparée 
-$sql = "SELECT * FROM products;";
-$stmtnt = $bdd->prepare($sql);
-$stmtnt->execute();
-
-
-// on vérifie si il y a des données de la requête SQL (1 seul résultat) 
-if($stmtnt && $stmtnt->rowCount() == 1)
+/* Requête : on récupère le premier résultat dans studebts*/
+$sth = $bdd->prepare('SELECT * FROM products;');
+$result = $sth->execute();
+if($result)
 {
-    //on récuèpre le résultat et on le met sur la ligne
-    //on traite l'entrée du résultat de la requête
-    $ligne = $stmtnt->fetch();
-    //on met le nom et le prenom dans $reponse["data"]
-    $reponse["data"] = $ligne["first_name"]." ".$ligne["last_name"];
-    //on dit qu'il n'y a pas d'erreur
-    $reponse["error"] = false;
-    //on dit qu'il n'y a pas d'erreur donc pas de message d'erreur
-    $reponse["error_message"] = "";
+    $data = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $response["data"] = $data;
+    $response["error_message"] = "";
+    $response["error"] = false;
 }
 else
 {
-    //on affiche le message si la condition n'est pas remplie (pas d'entrées dans ce cas)
-    $reponse["error_message"] = "Pas de données";
+    $response["error_message"] = "ERROR QUERY";
 }
 
 
-/* on convertit en json le tableau $reponse et on l'affiche avec echo*/
-echo json_encode($reponse);
+$sth->closeCursor();
+   
 
-/*on termine le script*/
+/* On affiche le tableau après l'avoir encodé au format json */
+/* Par définition, JSON est un format d'échange de données 
+(data interchange format).*/
+echo json_encode($response);
+
+/* on termine l'execution du script */
 die();
