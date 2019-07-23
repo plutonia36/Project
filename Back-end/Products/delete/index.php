@@ -24,13 +24,13 @@ header('Content-Type: application/json');
 $reponse = [
     "error"         => true, /* indique si il y a une erreur ou non */
     "error_message" => "Uknown error", /* il indique le message d'erreur pour les front */
-    "data"          => "http://localhost/project/Project/Back-end/Products/list/" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
+    "data"          => "connexion" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
 ];
 
-/*
+
 // on fait une requete pour afficher à partir de la BD 
 // requête préparée 
-$sql = "SELECT * FROM students LIMIT 1;";
+$sql = "SELECT * FROM  LIMIT 1;";
 $stmtnt = $bdd->prepare($sql);
 $stmtnt->execute();
 
@@ -53,7 +53,7 @@ else
     //on affiche le message si la condition n'est pas remplie (pas d'entrées dans ce cas)
     $reponse["error_message"] = "Pas de données";
 }
-*/
+
 
 /* on convertit en json le tableau $reponse et on l'affiche avec echo*/
 echo json_encode($reponse);
