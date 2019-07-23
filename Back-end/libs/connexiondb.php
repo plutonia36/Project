@@ -16,7 +16,7 @@ $dbuser  = 'root';
 $dbpwd   = '';
 
 
-define("DEBUG", false);
+define("DEBUG", true);
 
 if(!DEBUG)
 {

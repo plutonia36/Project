@@ -1,62 +1,48 @@
 <?php
 
-/* On ajoute la finction cors qui permet le cross-origin */
-/* pour authoriser l'appel du fichier entre backend et frontend*/
+
+
+
 require "../../libs/cors.php";
-/*on appelle la fonction cors*/
+require "../../libs/connexiondb.php";
 cors();
 
-/* connexion à la db */
-require "../../libs/connexiondb.php";
-
-/* on a ajouté le type du fichier */
 header('Content-Type: application/json');
 
-
-/*
-    on construit un tableau php
-    ICI, on doir respecter le format demandé car les frontends  (dans cet exercice)
-    s'attendent à recevoir se format
-    
-    pour une première itération/intéraction avec les frontends
-
-*/
-$reponse = [
-    "error"         => true, /* indique si il y a une erreur ou non */
-    "error_message" => "Uknown error", /* il indique le message d'erreur pour les front */
-    "data"          => "connexion" /* il sert à afficher se qu'on envoie aux front - les données de réponses */
+$response = [
+    "error"         => true,
+    "error_message" => "Uknown Error",
+    "data"          => NULL
 ];
 
-
-// on fait une requete pour afficher à partir de la BD 
-// requête préparée 
-$sql = "SELECT * FROM  LIMIT 1;";
-$stmtnt = $bdd->prepare($sql);
-$stmtnt->execute();
-
-
-// on vérifie si il y a des données de la requête SQL (1 seul résultat) 
-if($stmtnt && $stmtnt->rowCount() == 1)
+if(!isset($_REQUEST["id_products"]) || empty($_REQUEST["id_products"]) || !is_numeric($_REQUEST["id_products"]))
 {
-    //on récuèpre le résultat et on le met sur la ligne
-    //on traite l'entrée du résultat de la requête
-    $ligne = $stmtnt->fetch();
-    //on met le nom et le prenom dans $reponse["data"]
-    $reponse["data"] = $ligne["first_name"]." ".$ligne["last_name"];
-    //on dit qu'il n'y a pas d'erreur
-    $reponse["error"] = false;
-    //on dit qu'il n'y a pas d'erreur donc pas de message d'erreur
-    $reponse["error_message"] = "";
+    $response["error_message"] = "Erreur paramètre";
+    echo json_encode($response);
+    die();
+}
+
+$id_products = $_REQUEST["id_products"];
+
+$sth = $bdd->prepare('DELETE FROM products WHERE id_products = :id_products');
+$sth->bindValue(":id_products", $id_products, PDO::PARAM_INT);
+$result = $sth->execute();
+if($result)
+{
+    $data = "ok";
+    $response["data"] = $data;
+    $response["error_message"] = "";
+    $response["error"] = false;
 }
 else
 {
-    //on affiche le message si la condition n'est pas remplie (pas d'entrées dans ce cas)
-    $reponse["error_message"] = "Pas de données";
+    $response["error_message"] = "ERROR QUERY";
 }
 
 
-/* on convertit en json le tableau $reponse et on l'affiche avec echo*/
-echo json_encode($reponse);
+$sth->closeCursor();
+   
 
-/*on termine le script*/
+echo json_encode($response);
+
 die();
