@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 require "../../libs/cors.php";
 cors();
 require "../../libs/connexiondb.php";
@@ -46,5 +43,4 @@ $response = [
     die();
 
     }
-
 
