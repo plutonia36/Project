@@ -9,10 +9,12 @@ header('Content-Type: application/json');
 
 $response = [
     "error"         => true,
-    "error_message" => "Uknown Error",
-    "products"          => NULL
+    "error_message" => "Unknow error",
+    "products"          => NULL,
+    "status"            => ""
 ];
-    if(isset($_GET["name"], $_GET["quantity"], $_GET["price"])){
+    if(isset($_GET["name"], $_GET["quantity"], $_GET["price"]))
+    {
 
         $name=$_GET["name"];
         $quantity=$_GET["quantity"];
@@ -26,21 +28,17 @@ $response = [
         $stmtnt->bindValue(":price", $price, PDO::PARAM_INT);
         $stmtnt->execute();
         if($stmtnt)
-    {
+    {   
         $data = "ok";
         $response["products"] = $data;
         $response["error_message"] = "";
-        $response["error"] = false;
+        $response["status"] = "bon";
+
+     die();
+
+    }else{
+        $reponse["error_message"] = "mmettre le nom le poids et le prix dans l url";
     }
-    else
-    {
-        $response["error_message"] = "Erreur parametre: fonction 'name','quantity' et 'price' manquante ";
-    }
-       
-    
-    echo json_encode($response);
-    
-    die();
+        echo json_encode($response);
 
     }
-
