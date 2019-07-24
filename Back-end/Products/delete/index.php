@@ -12,7 +12,7 @@ header('Content-Type: application/json');
 $response = [
     "error"         => true,
     "error_message" => "Uknown Error",
-    "data"          => NULL
+    "products"          => NULL
 ];
 
 if(!isset($_REQUEST["id_products"]) || empty($_REQUEST["id_products"]) || !is_numeric($_REQUEST["id_products"]))
@@ -30,7 +30,7 @@ $result = $sth->execute();
 if($result)
 {
     $data = "ok";
-    $response["data"] = $data;
+    $response["products"] = $data;
     $response["error_message"] = "";
     $response["error"] = false;
 }
