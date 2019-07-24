@@ -19,9 +19,10 @@ $response = [
 ];
 
 
-$sql = "SELECT `name`,`quantity`,`price` FROM products;";
+$sql = "SELECT `id_products`,`quantity`,`price` FROM products;";
 $stmt = $bdd->prepare($sql);
 $result = $stmt->execute();
+
 if($result)
 {
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
