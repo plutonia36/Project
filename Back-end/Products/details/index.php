@@ -28,8 +28,13 @@ if(isset($_REQUEST['id_product']))
 
     if($result)
     {
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $response["products"] = $data;
+        $data = $stmt->fetch();
+        $product=['id_product':$data['id_product'],
+                 ['quantity':$data['quantity'],
+                 ['price':$data['price']   
+            ];
+        
+        $response["products"] = $product ;
         $response["error_message"] = "";
         $response["error"] = false;
     }
