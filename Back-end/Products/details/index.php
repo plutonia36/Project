@@ -21,7 +21,7 @@ $response = [
 {  
     $id_product = $_REQUEST['id_product'];
 
-    $sql = "SELECT `id_product`,`quantity`,`price` FROM products WHERE id_product= 1";
+    $sql = "SELECT `id_product`,`quantity`,`price` FROM products WHERE id_product= :id_product";
     //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
     $stmt = $bdd->prepare($sql);
     $stmt->bindValue(":id_product",$id_product,PDO::PARAM_INT);
