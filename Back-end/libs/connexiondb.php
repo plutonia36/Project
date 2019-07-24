@@ -10,8 +10,7 @@
 
 /*Informations de connexion*/
 $host    = 'localhost';
-//$dbname  = 'projects';
-$dbname  = 'test';
+$dbname  = 'projects';
 $charset = 'utf8';
 $dbuser  = 'root';
 $dbpwd   = '';
