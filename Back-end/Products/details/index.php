@@ -18,20 +18,27 @@ $response = [
     "products"          => NULL
 ];
 if(isset($_REQUEST['id_product']))
-{
+{ 
     $id_product = $_REQUEST['id_product'];
 
     $sql = "SELECT `id_product`,`quantity`,`price` FROM products WHERE id_product= :id_product";
+    //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
     $stmt = $bdd->prepare($sql);
     $stmt->bindValue(":id_product",$id_product,PDO::PARAM_INT);
     $result = $stmt->execute();
 
     if($result)
     {
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $response["products"] = $data;
+        $data = $stmt->fetch();
+        
+            $json["id_product"]= $data["id_product"];
+            $json["quantity"]= $data["quantity"];
+            $json["price"]= $data["price"];
+       
+          
+        $response["products"] = $json ;
         $response["error_message"] = "";
-        $response["error"] = false;
+        $response["error"] = false; 
     }
     else
     {
@@ -45,9 +52,11 @@ if(isset($_REQUEST['id_product']))
     echo json_encode($response);
 
     die();
+     
+ }
+ else{
+    $response["products"] = 'VIDE';
+    $response["error_message"] = "Erreur : parametre 'id_product' manquant";
+    $response["error"] = TRUE;
 }
-    else{
-     $response["products"] = 'VIDE';
-     $response["error_message"] = "Erreur : parametre 'id_product' manquant";
-     $response["error"] = TRUE;
-}
+
