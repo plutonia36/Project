@@ -15,7 +15,7 @@ header('Content-Type: application/json');
 $response = [
     "error"         => true,
     "error_message" => "Uknown Error",
-    "data"          => NULL
+    "products"          => NULL
 ];
 
 
