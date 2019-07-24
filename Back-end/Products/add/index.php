@@ -34,7 +34,7 @@ $response = [
     }
     else
     {
-        $response["error_message"] = "ERROR QUERY";
+        $response["error_message"] = "Erreur parametre: fonction 'name','quantity' et 'price' manquante ";
     }
        
     

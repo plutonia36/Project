@@ -36,7 +36,7 @@ if($result)
 }
 else
 {
-    $response["error_message"] = "ERROR QUERY";
+    $response["error_message"] = "erreur parametre: fonction 'id_products' manquante";
 }
 
 

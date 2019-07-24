@@ -45,8 +45,9 @@ if(isset($_REQUEST['id_product']))
     echo json_encode($response);
 
     die();
-}else{
-    $response["products"] = 'VIDE';
-    $response["error_message"] = "Erreur : parametre 'id_product' manquant";
-    $response["error"] = TRUE;
+}
+    else{
+     $response["products"] = 'VIDE';
+     $response["error_message"] = "Erreur : parametre 'id_product' manquant";
+     $response["error"] = TRUE;
 }
