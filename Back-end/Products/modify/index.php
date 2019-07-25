@@ -6,7 +6,7 @@ require "../../libs/connexiondb.php";
 
 header('Content-Type: application/json');
 
-$reponse = [
+$response = [
     "error"         => true, 
     "error_message" => "Uknown error", 
     "data"          => "" 
@@ -27,7 +27,16 @@ if(isset($_GET["name"],$_GET["quantity"],$_GET["price"], $_GET["id_product"]))
     $stmtnt->bindValue("price",$price,PDO::PARAM_INT);
     $stmtnt->bindValue("id_product",$id_product,PDO::PARAM_INT);
     $stmtnt->execute();
+    if($stmtnt){
+      
+        $response["error"]=false;
+        $response["data"]="ajouter";
+    }
+    else{
+        $response["errormessage"]="données incomplets";
+    }
     
 }
-echo json_encode($reponse);
+echo json_encode($response);
+die();
 

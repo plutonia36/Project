@@ -27,6 +27,7 @@ $response = [
         $stmtnt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmtnt->bindValue(":quantity", $quantity, PDO::PARAM_INT);
         $stmtnt->bindValue(":price", $price, PDO::PARAM_INT);
+        
         $stmtnt->execute();
 
         if($stmtnt)
