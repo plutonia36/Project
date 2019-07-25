@@ -22,7 +22,7 @@ $response = [
 
 $sth = $bdd->prepare('SELECT * FROM products;');
 $result = $sth->execute();
-if($result)
+if($result && $sth->rowCount() > 0)
 {
     $data = $sth->fetchAll(PDO::FETCH_ASSOC);
     $response["products"] = $data;
