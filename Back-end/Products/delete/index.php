@@ -29,10 +29,11 @@ $sth->bindValue(":id_product", $id_products, PDO::PARAM_INT);
 $result = $sth->execute();
 if($result)
 {
-    $data = "ok";
-    $response["products"] = $data;
+    //$data = "ok";
+   //$response["products"] = $data;
     $response["error_message"] = "";
     $response["error"] = false;
+    $response["status"] = 'ok';
 }
 else
 {
