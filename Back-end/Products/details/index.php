@@ -17,8 +17,18 @@ $response = [
     "error_message" => "Uknown Error",
     "products"          => NULL
 ];
- if(isset($_REQUEST['id_product']))
-{  
+ if(!isset($_REQUEST['id_product']))
+{ 
+    $response["error_message"] = "id_product parametre demandé";
+    echo json_encode($response);
+    die();
+}
+ if(empty($_REQUEST['id_product']))
+{ 
+    $response["error_message"] = "id_product parametre est vide !";
+    echo json_encode($response);
+    die();
+}
     $id_product = $_REQUEST['id_product'];  
 
     $sql = "SELECT `id_product`,name,`quantity`,`price` FROM products WHERE id_product= :id_product";
@@ -27,7 +37,7 @@ $response = [
     $stmt->bindValue(":id_product",$id_product,PDO::PARAM_INT);
     $result = $stmt->execute();
 
-    if($result)
+    if($result && $stmt->rowCount() > 0)
     {
         $data = $stmt->fetch();
         
@@ -49,17 +59,6 @@ $response = [
 
     $stmt->closeCursor();
     
-
-    
-
-    
-     
- }
-  else{
-    $response["products"] = 'VIDE';
-    $response["error_message"] = "Erreur : parametre 'id_product' manquant";
-    $response["error"] = TRUE;
-}
 echo json_encode($response);
  
 

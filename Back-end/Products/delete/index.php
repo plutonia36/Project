@@ -15,9 +15,19 @@ $response = [
     "products"          => NULL
 ];
 
-if(!isset($_REQUEST["id_product"]) || empty($_REQUEST["id_product"]) || !is_numeric($_REQUEST["id_product"]))
+if(!isset($_REQUEST["id_product"]))
 {
-    $response["error_message"] = "Erreur paramètre";
+    $response["error_message"] = "Erreur : paramètres id_product demandé";
+    echo json_encode($response);
+    die();
+}elseif(empty($_REQUEST["id_product"]) )
+{
+    $response["error_message"] = "Erreur : paramètres id_product vide";
+    echo json_encode($response);
+    die();
+}elseif(!is_numeric($_REQUEST["id_product"]))
+{
+    $response["error_message"] = "Erreur : paramètres id_product n'est pas un chiffre";
     echo json_encode($response);
     die();
 }
