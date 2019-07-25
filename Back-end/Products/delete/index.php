@@ -15,17 +15,17 @@ $response = [
     "products"          => NULL
 ];
 
-if(!isset($_REQUEST["id_product"]) || empty($_REQUEST["id_product"]) || !is_numeric($_REQUEST["id_product"]))
+if(!isset($_REQUEST["id_products"]) || empty($_REQUEST["id_products"]) || !is_numeric($_REQUEST["id_products"]))
 {
     $response["error_message"] = "Erreur paramètre";
     echo json_encode($response);
     die();
 }
 
-$id_products = $_REQUEST["id_product"];
+$id_products = $_REQUEST["id_products"];
 
-$sth = $bdd->prepare('DELETE FROM products WHERE id_product = :id_product');
-$sth->bindValue(":id_product", $id_products, PDO::PARAM_INT);
+$sth = $bdd->prepare('DELETE FROM products WHERE id_products = :id_products');
+$sth->bindValue(":id_products", $id_products, PDO::PARAM_INT);
 $result = $sth->execute();
 if($result)
 {
