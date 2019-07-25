@@ -17,21 +17,21 @@ $response = [
     "error_message" => "Uknown Error",
     "products"          => NULL
 ];
- if(isset($_REQUEST['id_products']))
+ if(isset($_REQUEST['id_product']))
 {  
-    $id_products = $_REQUEST['id_products'];  
+    $id_product = $_REQUEST['id_product'];  
 
-    $sql = "SELECT `id_products`,name,`quantity`,`price` FROM products WHERE id_products= :id_products";
+    $sql = "SELECT `id_product`,name,`quantity`,`price` FROM products WHERE id_product= :id_product";
     //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
     $stmt = $bdd->prepare($sql);
-    $stmt->bindValue(":id_products",$id_products,PDO::PARAM_INT);
+    $stmt->bindValue(":id_product",$id_product,PDO::PARAM_INT);
     $result = $stmt->execute();
 
     if($result)
     {
         $data = $stmt->fetch();
         
-            $json["id_products"]= $data["id_products"];
+            $json["id_product"]= $data["id_product"];
             $json["name"]= $data["name"];
             $json["quantity"]= $data["quantity"];
             $json["price"]= $data["price"];
@@ -57,7 +57,7 @@ $response = [
  }
   else{
     $response["products"] = 'VIDE';
-    $response["error_message"] = "Erreur : parametre 'id_products' manquant";
+    $response["error_message"] = "Erreur : parametre 'id_product' manquant";
     $response["error"] = TRUE;
 }
 echo json_encode($response);

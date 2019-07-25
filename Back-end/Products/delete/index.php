@@ -22,10 +22,10 @@ if(!isset($_REQUEST["id_products"]) || empty($_REQUEST["id_products"]) || !is_nu
     die();
 }
 
-$id_products = $_REQUEST["id_products"];
+$id_product = $_REQUEST["id_products"];
 
 $sth = $bdd->prepare('DELETE FROM products WHERE id_products = :id_products');
-$sth->bindValue(":id_products", $id_products, PDO::PARAM_INT);
+$sth->bindValue(":id_products", $id_product, PDO::PARAM_INT);
 $result = $sth->execute();
 if($result)
 {
