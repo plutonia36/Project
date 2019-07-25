@@ -11,7 +11,7 @@ require "../../libs/connexiondb.php";
 
 header('Content-Type: application/json');
 
-
+//
 $response = [
     "error"         => true,
     "error_message" => "Uknown Error",
@@ -19,7 +19,7 @@ $response = [
 ];
  if(isset($_REQUEST['id_product']))
 {  
-    $id_product = $_REQUEST['id_product'];
+    $id_product = $_REQUEST['id_product'];  
 
     $sql = "SELECT `id_product`,name,`quantity`,`price` FROM products WHERE id_product= :id_product";
     //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
