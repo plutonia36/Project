@@ -42,7 +42,7 @@ if(isset($_REQUEST["name"],$_REQUEST["quantity"],$_REQUEST["price"], $_REQUEST["
 else
 {
     $response["error"]   = true;
-    $response["error_message"]   ='paramatre n \'exist pas'; 
+    $response["error_message"]   ='les parametres n \'existe pas'; 
     $response["status"]   ='non';   
 }
 echo json_encode($response);
