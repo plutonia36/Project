@@ -15,17 +15,17 @@ $response = [
     "products"          => NULL
 ];
 
-if(!isset($_REQUEST["id_products"]) || empty($_REQUEST["id_products"]) || !is_numeric($_REQUEST["id_products"]))
+if(!isset($_REQUEST["id_product"]) || empty($_REQUEST["id_product"]) || !is_numeric($_REQUEST["id_product"]))
 {
     $response["error_message"] = "Erreur paramètre";
     echo json_encode($response);
     die();
 }
 
-$id_product = $_REQUEST["id_products"];
+$id_product = $_REQUEST["id_product"];
 
-$sth = $bdd->prepare('DELETE FROM products WHERE id_products = :id_products');
-$sth->bindValue(":id_products", $id_product, PDO::PARAM_INT);
+$sth = $bdd->prepare('DELETE FROM products WHERE id_product = :id_product');
+$sth->bindValue(":id_product", $id_product, PDO::PARAM_INT);
 $result = $sth->execute();
 if($result)
 {
@@ -37,7 +37,7 @@ if($result)
 }
 else
 {
-    $response["error_message"] = "erreur parametre: fonction 'id_products' manquante";
+    $response["error_message"] = "erreur parametre: fonction 'id_product' manquante";
 }
 
 
