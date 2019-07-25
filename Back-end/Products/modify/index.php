@@ -14,15 +14,20 @@ $response = [
 
 if(!isset($_REQUEST["name"])||!isset($_REQUEST["quantity"]) || !isset($_REQUEST["price"])|| !isset($_REQUEST["id_product"]))
 {
-    $response ['error_message']="les parametres n \'existe pas" ;
+    $response ['error_message']="les parametres : name , quantity , price , id_product  n \'existes pas" ;
     echo json_encode($response);
     die();
 }elseif(empty($_REQUEST["name"])||empty($_REQUEST["quantity"]) || empty($_REQUEST["price"])|| empty($_REQUEST["id_product"]))
 {
-    $response ['error_message']="les parametres vides" ;
+    $response ['error_message']="les parametres : name , quantity , price , id_product sont vides" ;
     echo json_encode($response);
     die();
-} 
+}elseif(!is_numeric($_REQUEST["quantity"])||!is_numeric($_REQUEST["price"])||!is_numeric($_REQUEST["id_product"]))
+{
+    $response ['error_message']="Erreur : type des parametres " ;
+    echo json_encode($response);
+    die();
+}
   
     $name=$_REQUEST["name"];
     $quantity=$_REQUEST["quantity"];
@@ -30,7 +35,7 @@ if(!isset($_REQUEST["name"])||!isset($_REQUEST["quantity"]) || !isset($_REQUEST[
     $id_products=$_REQUEST["id_product"];
     
     //$sql = "UPDATE products SET name =:name, quantity=$quantity, price=$price WHERE id_products=:id_products;";
-    $sql = "UPDATE products SET name = :name, quantity= :quantity, price= :price WHERE id_products=:id_products;";
+    $sql = "UPDATE products SET name = :name, quantity= :quantity, price= :price WHERE id_product=:id_products;";
 
     $stmtnt = $bdd->prepare($sql);
     $stmtnt->bindValue(":name",$name,PDO::PARAM_STR);
