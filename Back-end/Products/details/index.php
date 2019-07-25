@@ -50,9 +50,9 @@ $response = [
     $stmt->closeCursor();
     
 
-    echo json_encode($response);
+    
 
-    die();
+    
      
  }
   else{
@@ -60,4 +60,7 @@ $response = [
     $response["error_message"] = "Erreur : parametre 'id_product' manquant";
     $response["error"] = TRUE;
 }
+echo json_encode($response);
  
+
+die();
