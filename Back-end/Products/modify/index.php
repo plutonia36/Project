@@ -9,29 +9,41 @@ header('Content-Type: application/json');
 $response = [
     "error"         => true, 
     "error_message" => "Uknown error", 
-    "data"          => "" 
+    "status"          => "non" 
 ];
 
-if(isset($_GET["name"],$_GET["quantity"],$_GET["price"], $_GET["id_product"]))
+if(isset($_REQUEST["name"],$_REQUEST["quantity"],$_REQUEST["price"], $_REQUEST["id_product"]))
 {
-    $name=$_GET["name"];
-    $quantity=$_GET["quantity"];
-    $price=$_GET["price"];
-    $id_product=$_GET["id_product"];
+    $name=$_REQUEST["name"];
+    $quantity=$_REQUEST["quantity"];
+    $price=$_REQUEST["price"];
+    $id_product=$_REQUEST["id_product"];
     
-    $sql = "UPDATE products SET name ='$name', quantity=$quantity, price=$price WHERE id_product=:id_products;";
+    //$sql = "UPDATE products SET name =:name, quantity=$quantity, price=$price WHERE id_product=:id_products;";
+    $sql = "UPDATE products SET name = :name, quantity= :quantity, price= :price WHERE id_product=:id_products;";
+
     $stmtnt = $bdd->prepare($sql);
-    $stmtnt->bindValue("id_product",$id_product,PDO::PARAM_INT);
+    $stmtnt->bindValue("name",$name,PDO::PARAM_STR);
+    $stmtnt->bindValue("quantity",$quantity,PDO::PARAM_INT);
+    $stmtnt->bindValue("price",$price,PDO::PARAM_INT);
     $stmtnt->execute();
+
     if($stmtnt){
-      
-        $response["error"]=false;
-        $response["data"]="ajouter";
+ 
+        $response["error"]   = false;
+        $response["error_message"]   = '';
+        $response["status"]   = 'ok';  
     }
     else{
         $response["errormessage"]="données incomplets";
     }
     
+}
+else
+{
+    $response["error"]   = true;
+    $response["error_message"]   ='paramatre n \'exist pas'; 
+    $response["status"]   ='non';   
 }
 echo json_encode($response);
 die();
