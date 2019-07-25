@@ -1,7 +1,7 @@
 <?php
 
 $host    = 'localhost';
-$dbname  = 'project';
+$dbname  = 'projects';
 $charset = 'utf8';
 $dbuser  = 'root';
 $dbpwd   = '';
