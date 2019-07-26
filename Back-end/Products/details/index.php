@@ -29,7 +29,7 @@ $response = [
     echo json_encode($response);
     die();
 }
-    $id_products = $_REQUEST['id_products'];  
+    $id_products = $_REQUEST['id_product'];  
 
     $sql = "SELECT `id_products`,name,`quantity`,`price` FROM products WHERE id_products= :id_products";
     //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
@@ -41,7 +41,7 @@ $response = [
     {
         $data = $stmt->fetch();
         
-            $json["id_products"]= $data["id_products"];
+            $json["id_product"]= $data["id_products"];
             $json["name"]= $data["name"];
             $json["quantity"]= $data["quantity"];
             $json["price"]= $data["price"];
