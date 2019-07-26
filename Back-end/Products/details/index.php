@@ -29,25 +29,25 @@ $response = [
     echo json_encode($response);
     die();
 }
-    $id_product = $_REQUEST['id_product'];  
+    $id_products = $_REQUEST['id_products'];  
 
-    $sql = "SELECT `id_product`,name,`quantity`,`price` FROM products WHERE id_product= :id_product";
+    $sql = "SELECT `id_products`,name,`quantity`,`price` FROM products WHERE id_products= :id_products";
     //$sql = "SELECT `nom`,`age` FROM noms WHERE id_nom=11";
     $stmt = $bdd->prepare($sql);
-    $stmt->bindValue(":id_product",$id_product,PDO::PARAM_INT);
+    $stmt->bindValue(":id_products",$id_products,PDO::PARAM_INT);
     $result = $stmt->execute();
 
     if($result && $stmt->rowCount() > 0)
     {
         $data = $stmt->fetch();
         
-            $json["id_product"]= $data["id_product"];
+            $json["id_products"]= $data["id_products"];
             $json["name"]= $data["name"];
             $json["quantity"]= $data["quantity"];
             $json["price"]= $data["price"];
        
           
-        $response["products"] = $json ;
+        $response["product"] = $json ;
         $response["error_message"] = "";
         $response["error"] = false; 
     }
