@@ -32,7 +32,6 @@ if(!isset($_REQUEST["username"]) ||!isset($_REQUEST["password"]) )
 }
 //verifier si les params ne sont pas definie
 elseif( empty($_REQUEST["username"]) || empty($_REQUEST["password"]))
-)
 {
     $response["error_message"] = "Empty valeurs";
     echo json_encode($response);
@@ -48,13 +47,14 @@ elseif( empty($_REQUEST["username"]) || empty($_REQUEST["password"]))
         //$date_of_sign_up=$_REQUEST["date_of_sign_up"];
         //$price=$_REQUEST["gender"];
         //$price=$_REQUEST["email"];
+            //Mot de passe utilisateur en clait
 
         //on fait une requete sql pour afficher les valeurs dans noter base de donnee qui 
         //correspend à ces parametres
-        $sql="SELECT * FROM utilisateurs  WHERE username=:username AND password=:password ;";
+        $sql="SELECT * FROM utilisateurs  WHERE username=:username AND password=:password;";
         $stmtnt = $bdd->prepare($sql);
-        $stmtnt->bindValue(":username", $name, PDO::PARAM_STR);
-        $stmtnt->bindValue(":password", $quantity, PDO::PARAM_INT);
+        $stmtnt->bindValue(":username", $username, PDO::PARAM_STR);
+        $stmtnt->bindValue(":password", $password, PDO::PARAM_INT);
 
         $stmtnt->execute();
         //echo $stmtnt->rowCount();
@@ -67,36 +67,16 @@ elseif( empty($_REQUEST["username"]) || empty($_REQUEST["password"]))
             $response["error_message"] = "Erreur requete";
             $response["status"] = "non";
             
-         }elseif( $stmtnt->rowCount() == 0)
+         }elseif( $stmtnt->rowCount() <=0)
          {
             $response["error"] = true;
             $response["error_message"] = "l'utilisateur n'exist pas";
             $response["status"] = "non";
          }else
          {
-            $sql="INSERT INTO products (name,quantity,price) VALUES (:name,:quantity,:price);";
-
-            $stmtnt = $bdd->prepare($sql);
-            $stmtnt->bindValue(":name", $name, PDO::PARAM_STR);
-            $stmtnt->bindValue(":quantity", $quantity, PDO::PARAM_INT);
-            $stmtnt->bindValue(":price", $price, PDO::PARAM_INT);
-            $stmtnt->execute();
-
-            if($stmtnt)
-            {   
-            
-                //$data = "ok";
-                $response["error"] = false;
-                $response["error_message"] = "";
-                $response["status"] = "ok";
-            }else
-            {
-                $response["error"] = true;
-                $response["error_message"] = "erreur requete sql";
-                $response["status"] = "non";
-            }
-           
+            $response["error"] = false;
+            $response["error_message"] = "";
+            $response["status"] = "connexion reussis";
          }
 
 echo json_encode($response); 
-//echo $_SERVER["QUERY_STRING"];
