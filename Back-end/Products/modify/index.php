@@ -12,6 +12,7 @@ $response = [
     "status"          => "non" 
 ];
 
+<<<<<<< HEAD
 if(!isset($_REQUEST["name"])||!isset($_REQUEST["quantity"]) || !isset($_REQUEST["price"])|| !isset($_REQUEST["id_product"]))
 {
     $response ['error_message']="les parametres : name , quantity , price , id_product  n \'existes pas" ;
@@ -29,14 +30,23 @@ if(!isset($_REQUEST["name"])||!isset($_REQUEST["quantity"]) || !isset($_REQUEST[
     die();
 }
   
+=======
+if(isset($_REQUEST["name"],$_REQUEST["quantity"],$_REQUEST["price"], $_REQUEST["id_products"]))
+{     
+>>>>>>> parent of 570ec57... update add file
     $name=$_REQUEST["name"];
     $quantity=$_REQUEST["quantity"];
     $price=$_REQUEST["price"];
-    $id_products=$_REQUEST["id_product"];
+    $id_products=$_REQUEST["id_products"];
     
     //$sql = "UPDATE products SET name =:name, quantity=$quantity, price=$price WHERE id_products=:id_products;";
+<<<<<<< HEAD
     $sql = "UPDATE products SET name = :name, quantity= :quantity, price= :price WHERE id_product=:id_products;";
 
+=======
+    $sql = "UPDATE products SET name = :name, quantity= :quantity, price= :price WHERE id_products=:id_products;";
+//
+>>>>>>> parent of 570ec57... update add file
     $stmtnt = $bdd->prepare($sql);
     $stmtnt->bindValue(":name",$name,PDO::PARAM_STR);
     $stmtnt->bindValue(":quantity",$quantity,PDO::PARAM_INT);
@@ -54,7 +64,13 @@ if(!isset($_REQUEST["name"])||!isset($_REQUEST["quantity"]) || !isset($_REQUEST[
         $response["errormessage"]="données incomplets";
     }
     
-
+}
+else
+{
+    $response["error"]   = true;
+    $response["error_message"]   ='les parametres n \'existe pas'; 
+    $response["status"]   ='non';   
+}
 echo json_encode($response);
 die();
 
